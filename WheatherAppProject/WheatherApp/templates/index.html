@@ -1,0 +1,29 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNS9Iicmx-pAunfpp-tgWuFb6qfNPYBa2BNw&s" type="image/x-icon">
+    <title>Weather App</title>
+</head>
+<body>
+    <h1>Weather Dashboard</h1>
+    <form action="{% url 'weather' %}" method="POST">
+        {% csrf_token %}
+        <label for="city">Enter City Name:</label>
+        <input type="text" id="city" name="city" required>
+        <button type="submit">Get Weather</button>
+    </form>
+    {% if weather is None %}
+        <h2> {{ message }} </h2>
+    {% else %}
+        <h2>Weather in {{ city }}:</h2>
+        <p>Temperature: {{ weather.temperature }}°C</p>
+        <p>Humidity: {{ weather.humidity }}%</p>
+        <p>Condition: {{ weather.description }}</p>   
+    {% endif %}
+</body>
+</html></html>
